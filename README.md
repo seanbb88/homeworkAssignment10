@@ -1,7 +1,7 @@
 # homeworkAssignment10
 Homework 10 - Dating App
 
-Welcom to Match Maker!
+Welcom to Match Maker!<br>
 -You will will first visit the home page. By clicking the start button that will take you to the survey.<br> 
 -The survey consists of 10 questions based off of your likelihood of least likely to agree/do something and most likely.<br> 
 -If you are least likely to do one of the prompted questions then answer with a 1, that makes 5 most likely! <br>
