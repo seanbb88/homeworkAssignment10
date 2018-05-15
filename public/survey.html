@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DATING SURVEY</title>
+    <link rel="stylesheet" type="text/css" href="survey.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="div-body" class="div-body">
+        <h1 class="header">Please fill in the survey questions</h1>
+        <h3 class="header2">The below questions have a response of 1-5. </h3>
+        <h3 class="header2">1=LEAST LIKELY 5=MOST LIKELY</h3>
+
+        <div id="answer-questions-body" class="answer-questions-body">
+            <div id="questions-body" class="questions-body">
+
+            </div>
+            <div id="answer-body" class="answer-body">
+
+            </div>
+        </div>
+
+
+
+        <button id="submit" class="submit">Submit Results</button>
+        <a href="/match">
+            <button id="view-results" class="view-results">View Results</button>
+        </a>
+
+
+    </div>
+
+    <script>
+        var myQuestions = [
+            {
+                question: "1) How likely are you to go home with someone after the first date?",
+            },
+            {
+                question: "2) You see an old lady struggling to cross the street. How likley are you to help her get accross safely?",
+            },
+            {
+                question: "3) You're on a third date with someone you think might be special. After a meal they go outside and spark up a cigarette. How likely are you to go out with them again? ",
+            },
+            {
+                question: "4) The perfect Friday night for you is ordering in some food and watching a movie. How likely are you to agree with this statement?",
+            },
+            {
+                question: "5) An armored vehicle flips on the highway, cash is raining down like a tropical monsoon. How likely are you to help the poor stranded driver rather than join the other pedestrians grabbing cash like rabid beasts?",
+            },
+            {
+                question: "6) You would rather grab a nice burger and fries instead of a healthier salad for lunch. How likely are you to agree with this statement? ",
+            },
+            {
+                question: "7) You haven't spoken to your ex in a year and they hit you up for a late night booty call. How likely are you to respond? ",
+            },
+            {
+                question: "8) Would you rather attend a heavy rock concert or a nice soothing jazz show? (1-jazz / 5-rock)",
+            },
+            {
+                question: "9) You have a major project due on Friday for work and its Monday. How likely are you to procrastinate and wait last minute?",
+            },
+            {
+                question: "10) You saw Bill take a sip from a flask at the office during work hours. How likely are you to rat out Bill?",
+            },
+        ]; 
+
+        var array = [1, 2, 3, 4, 5];
+        var selectList = $("<select>");
+        $("#view-results").hide(); 
+        displayQuestions();
+
+        function displayQuestions() {
+
+            $("#answer-body").append(selectList);
+            selectList.attr("id", "selections");
+            selectList.attr("class", "selections");
+
+
+            for (var j = 0; j < myQuestions.length; j++) {
+                var quest = myQuestions[j].question;
+                var p = $("<p>");
+                p.append(quest);
+                $("#questions-body").append(p);
+            }
+
+            for (var i = 0; i < array.length; i++) {
+                var option = document.createElement("option");
+                option.value = array[i];
+                option.text = array[i];
+                selectList.append(option);
+            }
+
+            for (var k = 0; k < 9; k++) {
+                selectList.clone().insertAfter(selectList);
+                selectList.attr("id", "selections" + k);
+                selectList.attr("class", "selections");
+            }
+
+        }
+
+        $("#submit").on("click", function (event) {
+            event.preventDefault();
+            var results =
+                {
+                    number1: $("#selections8").val(),
+                    number2: $("#selections7").val(),
+                    number3: $("#selections6").val(),
+                    number4: $("#selections5").val(),
+                    number5: $("#selections4").val(),
+                    number6: $("#selections3").val(),
+                    number7: $("#selections2").val(),
+                    number8: $("#selections1").val(),
+                    number9: $("#selections0").val(),
+                    number10: $("#selections").val()
+                }
+
+
+            $.post("/api/results", results,
+                function (data) {
+                    if (data) {
+                        console.log(data);
+                    }
+
+                })
+
+            $("#view-results").show(); 
+            $("#submit").hide(); 
+
+
+
+        });
+
+
+    </script>
+
+</body>
+
+</html>

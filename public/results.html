@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page</title>
+    <link rel="stylesheet" type="text/css" href="results.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div id="div-body" class="div-body">
+        <h1 class="header">Here is who you matched with!</h1>
+        <h3 class="header2">We have matched you with a profile in our database that share your ideals!</h3>
+
+        <div id="results-body" class="results-body">
+            <div id="your-results" class="your-results">
+                <h3>Here are your results below. Your perfect love match is matched off your score</h3>
+
+            </div>
+            <div id="match-results" class="match-results">
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+
+        displayYourScore();
+
+        function displayYourScore() {
+            var currentURL = window.location.origin;
+            $.ajax({ url: currentURL + "/api/results", method: "GET" })
+                .then(function (results) {
+                    var one = parseInt(results[0].number1);
+                    var two = parseInt(results[0].number2);
+                    var three = parseInt(results[0].number3);
+                    var four = parseInt(results[0].number4);
+                    var five = parseInt(results[0].number5);
+                    var six = parseInt(results[0].number6);
+                    var seven = parseInt(results[0].number7);
+                    var eight = parseInt(results[0].number8);
+                    var nine = parseInt(results[0].number9);
+                    var ten = parseInt(results[0].number10);
+
+
+                    var p = $("<p>");
+                    var finalNumber = (one + two + three + four + five + six + seven + eight + nine + ten);
+                    p.append(finalNumber);
+
+                    $("#your-results").append(p);
+
+                    getProfileSums(finalNumber);
+                })
+        }
+
+        function getProfileSums(finalNumber) {
+            var currentURL = window.location.origin;
+            $.ajax({ url: currentURL + "/api/profiles", method: "GET" })
+                .then(function (results) {
+                    var array = [];
+                    for (var i = 0; i < results.length; i++) {
+                        var sum = results[i].scores.reduce(add, 0);
+                        function add(a, b) {
+                            return a + b;
+                        }
+                        
+                        array.push(sum);
+                    }
+                     
+                    matchProfile(array, finalNumber);
+                })
+        }
+
+        function matchProfile(array, finalNumber) {
+            var currentURL = window.location.origin;
+            $.ajax({ url: currentURL + "/api/profiles", method: "GET" })
+                .then(function (results) {
+                    var header = $("<h1>"); 
+                    for (var i = 0; i < results.length; i++) {
+                        var person = results[i].name; 
+                        var personPic = results[i].photo; 
+                        
+
+                        if (finalNumber == array[i]){
+                             header.append(person); 
+                             $("#match-results").append(header); 
+                             
+                              
+                             console.log(personPic); 
+
+                             $("#match-results").append("<img src='" + personPic + "' alt='no image found'>");
+                             
+                        } else {
+                            console.log("no match"); 
+                        }
+
+                    }
+                })
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

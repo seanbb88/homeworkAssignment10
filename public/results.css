@@ -1,0 +1,87 @@
+body{
+    background-color: black; 
+
+}
+
+.div-body {
+    width: 70%; 
+    height: 550px;
+    background-color: white; 
+    margin: auto; 
+    margin-top: 50px; 
+    background-image: url("hearts1.png"); 
+    background-size: 100% 100%; 
+    background-repeat: no-repeat; 
+
+}
+
+.header { 
+    text-align: center; 
+    color: black; 
+}
+
+.header2 { 
+    text-align: center; 
+    color: black; 
+    font-size: 18px; 
+    margin-right: 10%; 
+    margin-left: 10%;
+    margin-top: 5px; 
+    margin-bottom: 5px;   
+}
+
+a {
+    text-decoration: none; 
+}
+
+.your-results {
+    background: pink; 
+    width: 50%;
+    height: 400px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-around; 
+    font-size: 13px; 
+    text-align: center; 
+    
+}
+
+.your-results p {
+    font-size: 50px; 
+    margin-bottom: 125px; 
+}
+
+.your-results h3 {
+    margin-bottom: 100px;  
+}
+
+.match-results {
+    background: pink; 
+    width: 50%; 
+    height: 400px;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-around; 
+    font-size: 14px; 
+    text-align: center; 
+    line-height: 5px; 
+
+}
+
+.results-body {
+    width: 90%; 
+    height: 350px;
+    margin-top: 15px;
+    margin: auto;
+    display: flex; 
+    
+}
+
+img {
+    display: block; 
+    width: 80%; 
+    height: 200px;
+    margin-left: auto; 
+    margin-right: auto; 
+
+}
